@@ -1,6 +1,6 @@
 package br.com.sartarelli011.loja.entity;
 
-import br.com.sartarelli011.loja.dtos.UserDTO;
+import br.com.sartarelli011.loja.dtos.Request.UserRequestDTO;
 import br.com.sartarelli011.loja.enums.UserTypes;
 import jakarta.persistence.*;
 import lombok.*;
@@ -10,7 +10,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.UUID;
 
 @Entity(name = "User")
 @Table(name = "usuarios")
@@ -32,7 +31,7 @@ public class User implements UserDetails {
     private UserTypes role;
 
 
-    public User(UserDTO userDTO, String encryptedPassword) {
+    public User(UserRequestDTO userDTO, String encryptedPassword) {
         this.firstName = userDTO.firstName();
         this.lastName = userDTO.lastName();
         this.email = userDTO.email();

@@ -1,6 +1,6 @@
 package br.com.sartarelli011.loja.entity;
 
-import br.com.sartarelli011.loja.dtos.ProductDTO;
+import br.com.sartarelli011.loja.dtos.Request.ProductRequestDTO;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -22,7 +22,7 @@ public class Product {
     private Integer quantity;
     private BigDecimal price;
 
-    public Product(ProductDTO productDTO) {
+    public Product(ProductRequestDTO productDTO) {
         this.name = productDTO.name();
         this.description = productDTO.description();
         this.quantity = productDTO.quantity();

@@ -1,8 +1,8 @@
 package br.com.sartarelli011.loja.controller;
 
-import br.com.sartarelli011.loja.dtos.LoginDTO;
-import br.com.sartarelli011.loja.dtos.LoginResponseDTO;
-import br.com.sartarelli011.loja.dtos.UserDTO;
+import br.com.sartarelli011.loja.dtos.Request.LoginRequestDTO;
+import br.com.sartarelli011.loja.dtos.Response.LoginResponseDTO;
+import br.com.sartarelli011.loja.dtos.Request.UserRequestDTO;
 import br.com.sartarelli011.loja.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,12 +21,12 @@ public class AuthenticationController {
     private UserService userService;
 
     @PostMapping("/login")
-    public ResponseEntity<LoginResponseDTO> login(@RequestBody @Validated LoginDTO loginDTO) {
+    public ResponseEntity<LoginResponseDTO> login(@RequestBody @Validated LoginRequestDTO loginDTO) {
         return this.userService.loginUser(loginDTO);
     }
 
     @PostMapping("/register")
-    public ResponseEntity<String> register(@RequestBody @Validated UserDTO userDTO) {
+    public ResponseEntity<String> register(@RequestBody @Validated UserRequestDTO userDTO) {
         return this.userService.createUser(userDTO);
     }
 

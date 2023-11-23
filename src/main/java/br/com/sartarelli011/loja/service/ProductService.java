@@ -1,6 +1,7 @@
 package br.com.sartarelli011.loja.service;
 
-import br.com.sartarelli011.loja.dtos.ProductDTO;
+import br.com.sartarelli011.loja.dtos.Request.ProductRequestDTO;
+import br.com.sartarelli011.loja.dtos.Response.ProductResponseDTO;
 import br.com.sartarelli011.loja.entity.Product;
 import br.com.sartarelli011.loja.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,15 +14,15 @@ public class ProductService {
     @Autowired
     ProductRepository productRepository;
 
-    public List<Product> findProducts() {
+    public List<ProductResponseDTO> findProducts() {
         List<Product> listProducts = this.productRepository.findAll();
-        return listProducts;
+        return listProducts.stream().map(ProductResponseDTO::new).toList();
     }
 
-    public Product addProduct(ProductDTO productDTO) {
+    public ProductResponseDTO addProduct(ProductRequestDTO productDTO) {
         Product newProduct = new Product(productDTO);
         this.productRepository.save(newProduct);
-        return newProduct;
+        return new ProductResponseDTO(newProduct);
 
     }
 

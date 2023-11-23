@@ -1,8 +1,9 @@
 package br.com.sartarelli011.loja.service;
 
-import br.com.sartarelli011.loja.dtos.LoginDTO;
-import br.com.sartarelli011.loja.dtos.LoginResponseDTO;
-import br.com.sartarelli011.loja.dtos.UserDTO;
+import br.com.sartarelli011.loja.dtos.Request.LoginRequestDTO;
+import br.com.sartarelli011.loja.dtos.Response.LoginResponseDTO;
+import br.com.sartarelli011.loja.dtos.Request.UserRequestDTO;
+import br.com.sartarelli011.loja.dtos.Response.UserResponseDTO;
 import br.com.sartarelli011.loja.entity.User;
 import br.com.sartarelli011.loja.repositories.UserRepository;
 import br.com.sartarelli011.loja.security.TokenService;
@@ -27,7 +28,7 @@ public class UserService {
     @Autowired
     TokenService tokenService;
 
-    public ResponseEntity<LoginResponseDTO> loginUser(LoginDTO loginDTO) {
+    public ResponseEntity<LoginResponseDTO> loginUser(LoginRequestDTO loginDTO) {
 
         var usernamePassword = new UsernamePasswordAuthenticationToken(loginDTO.login(), loginDTO.password());
 
@@ -40,7 +41,7 @@ public class UserService {
         }
     }
 
-    public ResponseEntity<String> createUser(UserDTO userDTO) {
+    public ResponseEntity<String> createUser(UserRequestDTO userDTO) {
 
         if (this.userRepository.findByEmail(userDTO.email()) != null)
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Email already exists.");
@@ -53,8 +54,11 @@ public class UserService {
     }
 
 
-    public List<User> getAllUsers() {
-        return this.userRepository.findAll();
+    public List<UserResponseDTO> getAllUsers() {
+        List<User> listUsers = this.userRepository.findAll();
+
+        return listUsers.stream().map(UserResponseDTO::new).toList();
+
     }
 
 }

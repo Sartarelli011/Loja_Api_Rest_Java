@@ -1,6 +1,6 @@
 package br.com.sartarelli011.loja.controller;
 
-import br.com.sartarelli011.loja.dtos.UserDTO;
+import br.com.sartarelli011.loja.dtos.Response.UserResponseDTO;
 import br.com.sartarelli011.loja.entity.User;
 import br.com.sartarelli011.loja.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +18,8 @@ public class UserController {
 
 
     @GetMapping
-    public ResponseEntity<List<User>> findAllUser() {
-        List<User> listUser = this.userService.getAllUsers();
+    public ResponseEntity<List<UserResponseDTO>> findAllUser() {
+        var listUser = this.userService.getAllUsers();
         return ResponseEntity.status(HttpStatus.OK).body(listUser);
     }
 }
