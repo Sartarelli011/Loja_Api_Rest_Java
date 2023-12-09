@@ -29,12 +29,14 @@ public class SecurityConfiguration {
                         httpSecuritySessionManagementConfigurer -> httpSecuritySessionManagementConfigurer
                                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(
-                        authorize -> authorize
-                                .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
-                                .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
-                                .requestMatchers(HttpMethod.GET, "user").hasRole("EMPLOYE")
-                                .requestMatchers(HttpMethod.POST, "loja").hasRole("EMPLOYE")
-                                .anyRequest().authenticated()
+                        auth ->
+                                auth
+                                        .requestMatchers(HttpMethod.POST, "auth/login").permitAll()
+                                        .requestMatchers(HttpMethod.POST, "auth/register").hasRole("EMPLOYEE")
+                                        .requestMatchers(HttpMethod.GET, "/user").hasRole("EMPLOYEE")
+                                        .requestMatchers(HttpMethod.POST, "/loja").hasRole("EMPLOYEE")
+                                        .requestMatchers(HttpMethod.GET, "/loja").hasRole("CLIENT")
+                                        .anyRequest().authenticated()
 
 
                 )

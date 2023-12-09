@@ -4,8 +4,10 @@ import br.com.sartarelli011.loja.dtos.Request.LoginRequestDTO;
 import br.com.sartarelli011.loja.dtos.Response.LoginResponseDTO;
 import br.com.sartarelli011.loja.dtos.Request.UserRequestDTO;
 import br.com.sartarelli011.loja.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,15 +20,15 @@ public class AuthenticationController {
 
 
     @Autowired
-    private UserService userService;
+    UserService userService;
 
     @PostMapping("/login")
-    public ResponseEntity<LoginResponseDTO> login(@RequestBody @Validated LoginRequestDTO loginDTO) {
+    public ResponseEntity<LoginResponseDTO> login(@RequestBody @Validated @Valid LoginRequestDTO loginDTO) {
         return this.userService.loginUser(loginDTO);
     }
 
     @PostMapping("/register")
-    public ResponseEntity<String> register(@RequestBody @Validated UserRequestDTO userDTO) {
+    public ResponseEntity<String> register(@RequestBody @Validated @Valid UserRequestDTO userDTO) {
         return this.userService.createUser(userDTO);
     }
 

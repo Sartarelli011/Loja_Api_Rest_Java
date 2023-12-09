@@ -28,22 +28,22 @@ public class User implements UserDetails {
     private String email;
     private String password;
     @Enumerated(EnumType.STRING)
+    @Column(name = "user_type")
     private UserTypes role;
 
-
-    public User(UserRequestDTO userDTO, String encryptedPassword) {
+    public User(UserRequestDTO userDTO) {
         this.firstName = userDTO.firstName();
         this.lastName = userDTO.lastName();
         this.email = userDTO.email();
-        this.password = encryptedPassword;
+        this.password = userDTO.password();
         this.role = userDTO.role();
     }
 
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        if (this.role == UserTypes.EMPLOYE) {
-            return List.of(new SimpleGrantedAuthority("ROLE_EMPLOYE"), new SimpleGrantedAuthority("ROLE_CLIENT"));
+        if (this.role == UserTypes.EMPLOYEE) {
+            return List.of(new SimpleGrantedAuthority("ROLE_EMPLOYEE"), new SimpleGrantedAuthority("ROLE_CLIENT"));
         } else return List.of(new SimpleGrantedAuthority("ROLE_CLIENT"));
 
     }

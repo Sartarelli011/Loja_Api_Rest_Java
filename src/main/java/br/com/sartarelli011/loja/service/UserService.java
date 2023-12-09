@@ -47,7 +47,8 @@ public class UserService {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Email already exists.");
 
         String encriptedUserPassword = new BCryptPasswordEncoder().encode(userDTO.password());
-        User newUser = new User(userDTO, encriptedUserPassword);
+        User newUser = new User(userDTO);
+        newUser.setPassword(encriptedUserPassword);
         this.userRepository.save(newUser);
 
         return ResponseEntity.status(HttpStatus.CREATED).body("User created with success!");
@@ -55,9 +56,8 @@ public class UserService {
 
 
     public List<UserResponseDTO> getAllUsers() {
-        List<User> listUsers = this.userRepository.findAll();
 
-        return listUsers.stream().map(UserResponseDTO::new).toList();
+        return this.userRepository.findAll().stream().map(UserResponseDTO::new).toList();
 
     }
 

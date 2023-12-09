@@ -15,8 +15,7 @@ public class ProductService {
     ProductRepository productRepository;
 
     public List<ProductResponseDTO> findProducts() {
-        List<Product> listProducts = this.productRepository.findAll();
-        return listProducts.stream().map(ProductResponseDTO::new).toList();
+        return this.productRepository.findAll().stream().map(ProductResponseDTO::new).toList();
     }
 
     public ProductResponseDTO addProduct(ProductRequestDTO productDTO) {

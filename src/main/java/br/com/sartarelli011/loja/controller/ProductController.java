@@ -3,9 +3,11 @@ package br.com.sartarelli011.loja.controller;
 import br.com.sartarelli011.loja.dtos.Request.ProductRequestDTO;
 import br.com.sartarelli011.loja.dtos.Response.ProductResponseDTO;
 import br.com.sartarelli011.loja.service.ProductService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,7 +25,7 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<ProductResponseDTO> addProduct(@RequestBody ProductRequestDTO productDTO) {
+    public ResponseEntity<ProductResponseDTO> addProduct(@RequestBody @Valid ProductRequestDTO productDTO) {
         ProductResponseDTO createProduct = this.productService.addProduct(productDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(createProduct);
     }
