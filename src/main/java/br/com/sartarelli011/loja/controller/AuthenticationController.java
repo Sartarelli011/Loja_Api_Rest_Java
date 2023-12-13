@@ -23,12 +23,12 @@ public class AuthenticationController {
     UserService userService;
 
     @PostMapping("/login")
-    public ResponseEntity<LoginResponseDTO> login(@RequestBody @Validated @Valid LoginRequestDTO loginDTO) {
+    public ResponseEntity<LoginResponseDTO> login(@RequestBody  @Valid LoginRequestDTO loginDTO) {
         return this.userService.loginUser(loginDTO);
     }
 
     @PostMapping("/register")
-    public ResponseEntity<String> register(@RequestBody @Validated @Valid UserRequestDTO userDTO) {
+    public ResponseEntity<String> register(@RequestBody  @Valid UserRequestDTO userDTO) {
         return this.userService.createUser(userDTO);
     }
 
